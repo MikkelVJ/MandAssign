@@ -30,7 +30,7 @@ class CatsRepository {
             override fun onResponse(call: Call<List<Cat>>, response: Response<List<Cat>>) {
                 if (response.isSuccessful) {
                     val b: List<Cat>? = response.body()
-                    Log.d("PINEAPLLE", b.toString())
+                    Log.d("PINEAPPLE", b.toString())
                     catsLiveData.postValue(b!!)
                     errorMessageLiveData.postValue("")
                 } else {

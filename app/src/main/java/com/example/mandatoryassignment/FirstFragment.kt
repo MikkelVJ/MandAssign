@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mandatoryassignment.databinding.FragmentFirstBinding
 import com.example.mandatoryassignment.Models.CatsViewModel
 import com.example.mandatoryassignment.Models.MyAdapter
@@ -38,13 +40,17 @@ class FirstFragment : Fragment() {
         catsViewModel.catsLiveData.observe(viewLifecycleOwner) { cats ->
             binding.progressbar.visibility = View.GONE
             binding.recyclerView.visibility = if (cats == null) View.GONE else View.VISIBLE
-//            if (cats != null) {
-//                val adapter = MyAdapter(cats) { position ->
-//                    val action =
-//                        FirstFragmentDirections
-//                }
+            if (cats != null) {
+                val adapter = MyAdapter(cats) { position ->
+                    val action =
+                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(position)
+                    findNavController().navigate(action)
+                }
+                binding.recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+                    binding.recyclerView.adapter = adapter
+            }
         }
+
+
     }
-
-
 }
