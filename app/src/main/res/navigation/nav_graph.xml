@@ -15,6 +15,9 @@
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment"
             />
+        <action
+            android:id="@+id/action_FirstFragment_to_catCreationFragment"
+            app:destination="@id/catCreationFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -29,4 +32,9 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/catCreationFragment"
+        android:name="com.example.mandatoryassignment.CatCreationFragment"
+        android:label="fragment_cat_creation"
+        tools:layout="@layout/fragment_cat_creation" />
 </navigation>
