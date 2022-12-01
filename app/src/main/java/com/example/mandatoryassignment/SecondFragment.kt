@@ -1,12 +1,17 @@
 package com.example.mandatoryassignment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.example.mandatoryassignment.Models.CatsViewModel
 import com.example.mandatoryassignment.databinding.FragmentSecondBinding
+import com.example.mandatoryassignment.Models.Cat
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -14,27 +19,42 @@ import com.example.mandatoryassignment.databinding.FragmentSecondBinding
 class SecondFragment : Fragment() {
 
     private var _binding: FragmentSecondBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val catsViewModel: CatsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-/*        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }*/
+        val bundle = requireArguments()
+        val secondFragmentArgs: SecondFragmentArgs = SecondFragmentArgs.fromBundle(bundle)
+        val position = secondFragmentArgs.position
+        val cat = catsViewModel[position]
+        if (cat == null){
+            binding.textviewMessage.text = "No such cat!"
+            return
+        }
+        binding.editTextName.setText(cat.name)
+        binding.editTextDate.setText(cat.date.toString())
+        binding.editTextDescription.setText(cat.description)
+        binding.editTextPlace.setText(cat.place)
+        binding.editTextReward.setText(cat.reward + " " + "kr.")
+
+        binding.buttonBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.buttonDelete.setOnClickListener {
+            catsViewModel.delete(cat.id)
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroyView() {

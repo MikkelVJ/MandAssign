@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mandatoryassignment.Models.Cat
 import com.example.mandatoryassignment.Models.CatsViewModel
 import com.example.mandatoryassignment.databinding.FragmentCatCreationBinding
@@ -39,6 +40,8 @@ class CatCreationFragment : Fragment() {
             val cat = Cat(0, name, description, place, reward, userId = "0", date, null)
 
             catsViewModel.add(cat)
+
+            findNavController().popBackStack()
         }
     }
 

@@ -12,19 +12,45 @@
         android:layout_height="wrap_content" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/editText_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title"
-        android:inputType="text" />
+        android:hint="Name"
+        android:inputType="text"
+        android:textSize="20dp"/>
 
-    <EditText
+    <TextView
+        android:id="@+id/editText_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:inputType="text"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/editText_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Place"
+        android:inputType="text"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/editText_reward"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Reward"
+        android:inputType="text"
+        android:textSize="20dp"/>
+
+    <TextView
         android:id="@+id/editText_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price"
-        android:inputType="date" />
+        android:hint="Date"
+        android:inputType="date"
+        android:textSize="20dp"/>
 
     <Button
         android:id="@+id/button_back"
@@ -37,11 +63,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete" />
-
-    <Button
-        android:id="@+id/button_update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update" />
 
 </LinearLayout>
