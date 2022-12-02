@@ -37,7 +37,6 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.fab.setOnClickListener { view ->
             val action = FirstFragmentDirections.actionFirstFragmentToCatCreationFragment()
             findNavController().navigate(action)
@@ -48,8 +47,7 @@ class FirstFragment : Fragment() {
             binding.recyclerView.visibility = if (cats == null) View.GONE else View.VISIBLE
             if (cats != null) {
                 val adapter = MyAdapter(cats) { position ->
-                    val action =
-                        FirstFragmentDirections.actionFirstFragmentToSecondFragment(position)
+                    val action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(position)
                     findNavController().navigate(action)
                 }
                 var columns = 2
@@ -61,7 +59,18 @@ class FirstFragment : Fragment() {
                 binding.recyclerView.adapter = adapter
             }
         }
+        catsViewModel.errorMessageLiveData.observe(viewLifecycleOwner) { errorMessage ->
+            binding.textviewMessage.text = errorMessage
+        }
+        catsViewModel.reload()
 
+        binding.swiperefresh.setOnClickListener {
+            catsViewModel.reload()
+            binding.swiperefresh.isRefreshing = false
+        }
 
+        catsViewModel.catsLiveData.observe(viewLifecycleOwner) { cats ->
+            //val adapter = ArrayAdapter(require)
+        }
     }
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.mandatoryassignment.FirstFragment"
-        android:label="Books"
+        android:label="Cats"
         tools:layout="@layout/fragment_first">
 
         <action
@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_catCreationFragment"
             app:destination="@id/catCreationFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -37,4 +40,9 @@
         android:name="com.example.mandatoryassignment.CatCreationFragment"
         android:label="fragment_cat_creation"
         tools:layout="@layout/fragment_cat_creation" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.mandatoryassignment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>
