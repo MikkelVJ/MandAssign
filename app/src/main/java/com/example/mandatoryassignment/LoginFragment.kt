@@ -32,9 +32,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-        binding.viewError.setText(currentUser.toString() + " already logged in")
+        val CurrentUser = auth.currentUser
+        if (CurrentUser != null) {
+            binding.viewError.setText(CurrentUser.toString() + " already logged in")
         }
 
         binding.buttonLogin.setOnClickListener {
@@ -46,10 +46,28 @@ class LoginFragment : Fragment() {
                     if (task.isSuccessful) {
                         Log.d("ORANGE", " signInWithEmail:success")
                         val user = auth.currentUser
-                        binding.viewError.setText("Succesfully logged in as: " + user.toString())
+                        binding.viewError.setText("Successfully logged in as: " + user.toString())
                     } else {
                         Log.d("ORANGE", " signInWithEmail:failure", task.exception)
                         binding.viewError.setText("Authentication failed")
+                    }
+                }
+        }
+
+        binding.buttonSignup.setOnClickListener {
+            val email = binding.editUsername.text.toString()
+            val password = binding.editPassword.text.toString()
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(requireActivity()) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("GRAPE", "createUserWithEmail:succes")
+                        val user = auth.currentUser
+                        binding.viewError.setText("Successfully created user: " + email.toString())
+                    } else {
+                        Log.d("GRAPE", "User Creation Failed")
+                        binding.viewError.setText("Failed to create user")
+
                     }
                 }
         }

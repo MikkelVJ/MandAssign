@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.mandatoryassignment.Models.CatsViewModel
 import com.example.mandatoryassignment.databinding.FragmentSecondBinding
 import com.example.mandatoryassignment.Models.Cat
+import com.google.firebase.auth.FirebaseAuth
 
 
 /**
@@ -18,6 +19,7 @@ import com.example.mandatoryassignment.Models.Cat
  */
 class SecondFragment : Fragment() {
 
+    private lateinit var auth: FirebaseAuth
     private var _binding: FragmentSecondBinding? = null
     private val binding get() = _binding!!
     private val catsViewModel: CatsViewModel by activityViewModels()
@@ -37,10 +39,11 @@ class SecondFragment : Fragment() {
         val secondFragmentArgs: SecondFragmentArgs = SecondFragmentArgs.fromBundle(bundle)
         val position = secondFragmentArgs.position
         val cat = catsViewModel[position]
-        if (cat == null){
+        if (cat == null) {
             binding.textviewMessage.text = "No such cat!"
             return
         }
+
         binding.editTextName.setText(cat.name)
         binding.editTextDate.setText(cat.date.toString())
         binding.editTextDescription.setText(cat.description)
@@ -52,8 +55,12 @@ class SecondFragment : Fragment() {
         }
 
         binding.buttonDelete.setOnClickListener {
-            catsViewModel.delete(cat.id)
-            findNavController().popBackStack()
+            val CurrentUser = auth.currentUser
+
+            if (CurrentUser != null && CurrentUser.toString() == cat.userId) {
+                catsViewModel.delete(cat.id)
+                findNavController().popBackStack()
+            }
         }
     }
 
@@ -61,4 +68,5 @@ class SecondFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

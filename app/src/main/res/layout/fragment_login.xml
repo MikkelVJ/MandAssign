@@ -33,6 +33,13 @@
         android:hint="Login"
         android:textColorHint="@color/white"/>
 
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Sign Up"
+        android:textColorHint="@color/white"/>
+
     <TextView
         android:id="@+id/view_error"
         android:layout_width="match_parent"
