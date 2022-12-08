@@ -12,6 +12,8 @@ import com.example.mandatoryassignment.Models.CatsViewModel
 import com.example.mandatoryassignment.databinding.FragmentSecondBinding
 import com.example.mandatoryassignment.Models.Cat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 /**
@@ -28,6 +30,7 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        auth = Firebase.auth
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -56,8 +59,8 @@ class SecondFragment : Fragment() {
 
         binding.buttonDelete.setOnClickListener {
             val CurrentUser = auth.currentUser
-
-            if (CurrentUser != null && CurrentUser.toString() == cat.userId) {
+            Log.d("Mandarin", CurrentUser.toString())
+            if (CurrentUser != null && CurrentUser.email == cat.userId) {
                 catsViewModel.delete(cat.id)
                 findNavController().popBackStack()
             }

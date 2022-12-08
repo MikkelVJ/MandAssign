@@ -10,9 +10,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.mandatoryassignment.Models.Cat
 import com.example.mandatoryassignment.Models.CatsViewModel
 import com.example.mandatoryassignment.databinding.FragmentCatCreationBinding
-import com.example.mandatoryassignment.databinding.FragmentFirstBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class CatCreationFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
 
     private var _binding: FragmentCatCreationBinding? = null
     private val binding get() = _binding!!
@@ -23,6 +27,7 @@ class CatCreationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        auth = Firebase.auth
         _binding = FragmentCatCreationBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,8 +41,9 @@ class CatCreationFragment : Fragment() {
             val place = binding.EditPlace.text.toString().trim()
             val reward = binding.EditReward.text.toString().trim()
             val date = binding.DatePicker.text.toString().trim().toLong()
+            val CurrentUser = auth.currentUser
 
-            val cat = Cat(0, name, description, place, reward, userId = "0", date, null)
+            val cat = Cat(0, name, description, place, reward, userId = CurrentUser?.email, date, null)
 
             catsViewModel.add(cat)
 

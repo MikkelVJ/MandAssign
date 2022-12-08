@@ -18,6 +18,8 @@ import com.example.mandatoryassignment.Models.CatsViewModel
 import com.example.mandatoryassignment.Models.MyAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -34,6 +36,7 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        auth = Firebase.auth
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
