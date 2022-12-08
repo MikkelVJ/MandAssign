@@ -108,7 +108,9 @@ class CatsRepository {
         if (name.isBlank()) {
             getCats()
         } else {
-            catsLiveData.value?.filter { cat -> cat.name.contains(name) }
+            val filter: List<Cat>? = catsLiveData.value?.filter { cat -> cat.name.contains(name) }
+            Log.d("KIWI", filter.toString())
+            catsLiveData.value = filter!!
         }
     }
 }
